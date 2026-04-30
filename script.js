@@ -1,6 +1,5 @@
 /* =====================================================
    GRACIA VITA – Électricien | script.js
-   Animations · Header · Formulaire · Floating button
    ===================================================== */
 
 (function () {
@@ -9,7 +8,7 @@
     /* --------------------------------------------------
        1. HEADER – effet au scroll
     -------------------------------------------------- */
-    const header = document.getElementById('header');
+    var header = document.getElementById('header');
 
     window.addEventListener('scroll', function () {
         header.classList.toggle('scrolled', window.scrollY > 60);
@@ -17,11 +16,50 @@
 
 
     /* --------------------------------------------------
-       2. FADE-IN AU SCROLL (Intersection Observer)
+       2. MENU HAMBURGER MOBILE
     -------------------------------------------------- */
-    const fadeEls = document.querySelectorAll('.fade-in');
+    var hamburger  = document.getElementById('hamburger');
+    var mobileMenu = document.getElementById('mobileMenu');
+    var mobileLinks = document.querySelectorAll('.mobile-link, .mobile-cta');
 
-    const fadeObserver = new IntersectionObserver(function (entries) {
+    function openMenu() {
+        hamburger.classList.add('open');
+        hamburger.setAttribute('aria-expanded', 'true');
+        mobileMenu.classList.add('open');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+
+    if (hamburger && mobileMenu) {
+        hamburger.addEventListener('click', function () {
+            if (mobileMenu.classList.contains('open')) closeMenu();
+            else openMenu();
+        });
+
+        mobileLinks.forEach(function (link) {
+            link.addEventListener('click', closeMenu);
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeMenu();
+        });
+    }
+
+
+    /* --------------------------------------------------
+       3. FADE-IN AU SCROLL (Intersection Observer)
+    -------------------------------------------------- */
+    var fadeEls = document.querySelectorAll('.fade-in');
+
+    var fadeObserver = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
@@ -29,41 +67,79 @@
             }
         });
     }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -40px 0px'
+        threshold: 0.08,
+        rootMargin: '0px 0px -30px 0px'
     });
 
-    fadeEls.forEach(function (el) {
-        fadeObserver.observe(el);
-    });
+    fadeEls.forEach(function (el) { fadeObserver.observe(el); });
 
 
     /* --------------------------------------------------
-       3. STAGGER (délai progressif) sur les grilles
+       4. STAGGER SUR LES GRILLES
     -------------------------------------------------- */
-    var grids = [
+    [
         '.services-grid .service-card',
         '.clients-grid .client-card',
-        '.trust-grid .trust-item'
-    ];
-
-    grids.forEach(function (selector) {
+        '.trust-grid .trust-item',
+        '.stats-grid .stat-item'
+    ].forEach(function (selector) {
         document.querySelectorAll(selector).forEach(function (card, i) {
-            card.style.transitionDelay = (i * 0.07) + 's';
+            card.style.transitionDelay = (i * 0.08) + 's';
         });
     });
 
 
     /* --------------------------------------------------
-       4. SCROLL FLUIDE – liens ancre
+       5. COMPTEURS ANIMÉS (count-up)
+    -------------------------------------------------- */
+    var counters = document.querySelectorAll('.stat-number[data-target]');
+
+    function easeOut(t) {
+        return 1 - Math.pow(1 - t, 3);
+    }
+
+    function animateCounter(el) {
+        var target   = parseInt(el.getAttribute('data-target'), 10);
+        var duration = 1600;
+        var start    = null;
+
+        function step(timestamp) {
+            if (!start) start = timestamp;
+            var elapsed  = timestamp - start;
+            var progress = Math.min(elapsed / duration, 1);
+            el.textContent = Math.floor(easeOut(progress) * target);
+            if (progress < 1) requestAnimationFrame(step);
+            else el.textContent = target;
+        }
+
+        requestAnimationFrame(step);
+    }
+
+    if (counters.length) {
+        var counterObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(function (c) { counterObserver.observe(c); });
+    }
+
+
+    /* --------------------------------------------------
+       6. SCROLL FLUIDE – liens ancre
     -------------------------------------------------- */
     document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
         anchor.addEventListener('click', function (e) {
             var id     = anchor.getAttribute('href');
+            if (id === '#') return;
             var target = document.querySelector(id);
             if (!target) return;
             e.preventDefault();
-            var offset = 78; // hauteur header
+            var offset = 78;
             var top    = target.getBoundingClientRect().top + window.scrollY - offset;
             window.scrollTo({ top: top, behavior: 'smooth' });
         });
@@ -71,9 +147,9 @@
 
 
     /* --------------------------------------------------
-       5. BOUTON FLOTTANT – apparaît après le hero
+       7. BOUTON FLOTTANT – apparaît après le hero
     -------------------------------------------------- */
-    var floatPhone = document.getElementById('floatPhone');
+    var floatPhone  = document.getElementById('floatPhone');
     var heroSection = document.getElementById('hero');
 
     if (floatPhone && heroSection) {
@@ -81,26 +157,24 @@
             entries.forEach(function (entry) {
                 floatPhone.classList.toggle('show', !entry.isIntersecting);
             });
-        }, { threshold: 0.25 });
+        }, { threshold: 0.2 });
 
         heroObserver.observe(heroSection);
     }
 
 
     /* --------------------------------------------------
-       6. FORMULAIRE DE CONTACT
-         (simulation envoi — à connecter à un backend
-          ou service type Formspree / EmailJS)
+       8. FORMULAIRE DE CONTACT
+         (simulation — à connecter à Formspree / EmailJS)
     -------------------------------------------------- */
-    var form       = document.getElementById('contactForm');
-    var submitBtn  = document.getElementById('submitBtn');
+    var form        = document.getElementById('contactForm');
+    var submitBtn   = document.getElementById('submitBtn');
     var formSuccess = document.getElementById('formSuccess');
 
     if (form && submitBtn && formSuccess) {
         form.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            /* Validation simple */
             var name    = form.querySelector('#name').value.trim();
             var phone   = form.querySelector('#phone').value.trim();
             var message = form.querySelector('#message').value.trim();
@@ -110,26 +184,20 @@
                 return;
             }
 
-            /* État de chargement */
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours…';
 
-            /* ---- Pour connecter à Formspree :
-               Remplacer le setTimeout ci-dessous par :
-
+            /* ---- Connecter à Formspree :
                fetch('https://formspree.io/f/VOTRE_ID', {
                    method: 'POST',
                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                   body: JSON.stringify({ name, phone, message })
-               }).then(function(r) {
-                   if (r.ok) showSuccess();
-                   else resetBtn('Erreur, réessayez');
-               }).catch(function() { resetBtn('Erreur réseau'); });
+                   body: JSON.stringify({ name: name, phone: phone, message: message })
+               })
+               .then(function(r) { if (r.ok) showSuccess(); else resetBtn('Erreur, réessayez'); })
+               .catch(function() { resetBtn('Erreur réseau'); });
             ---- */
 
-            setTimeout(function () {
-                showSuccess();
-            }, 1200);
+            setTimeout(showSuccess, 1200);
         });
     }
 
@@ -137,7 +205,6 @@
         form.reset();
         submitBtn.style.display = 'none';
         formSuccess.classList.add('visible');
-
         setTimeout(function () {
             formSuccess.classList.remove('visible');
             submitBtn.style.display  = '';
@@ -147,31 +214,26 @@
     }
 
     function resetBtn(label) {
-        submitBtn.disabled   = false;
-        submitBtn.innerHTML  = '<i class="fas fa-paper-plane"></i> ' + label;
+        submitBtn.disabled  = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> ' + label;
     }
 
     function shakeForm() {
         form.style.animation = 'none';
-        form.offsetHeight; /* reflow */
+        void form.offsetHeight;
         form.style.animation = 'shake 0.4s ease';
     }
 
-    /* Keyframe shake injectée dynamiquement */
     if (!document.getElementById('shakeStyle')) {
         var style  = document.createElement('style');
         style.id   = 'shakeStyle';
-        style.textContent = '@keyframes shake {' +
-            '0%,100%{transform:translateX(0)}' +
-            '25%{transform:translateX(-6px)}' +
-            '75%{transform:translateX(6px)}' +
-        '}';
+        style.textContent = '@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}';
         document.head.appendChild(style);
     }
 
 
     /* --------------------------------------------------
-       7. HIGHLIGHT DU LIEN NAV ACTIF (scroll spy)
+       9. SCROLL SPY – lien nav actif
     -------------------------------------------------- */
     var sections = document.querySelectorAll('section[id]');
     var navLinks = document.querySelectorAll('.nav-links a');
@@ -181,14 +243,12 @@
             entries.forEach(function (entry) {
                 if (entry.isIntersecting) {
                     navLinks.forEach(function (link) {
-                        var isActive = link.getAttribute('href') === '#' + entry.target.id;
-                        link.style.color = isActive ? 'var(--clr-white)' : '';
+                        var active = link.getAttribute('href') === '#' + entry.target.id;
+                        link.style.color = active ? 'var(--clr-white)' : '';
                     });
                 }
             });
-        }, {
-            threshold: 0.4
-        });
+        }, { threshold: 0.4 });
 
         sections.forEach(function (s) { spyObserver.observe(s); });
     }

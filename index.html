@@ -3,20 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Gracia Vita – Électricien qualifié. +10 ans d'expérience. Dépannage, installation, rénovation électrique. Devis gratuit. Intervention rapide.">
-    <meta name="keywords" content="électricien, dépannage électrique, installation électrique, rénovation, tableau électrique, devis gratuit">
+    <meta name="description" content="Gracia Vita – Électricien qualifié en Île-de-France. +10 ans d'expérience. Dépannage, installation, rénovation électrique. Devis gratuit. Intervention rapide.">
+    <meta name="keywords" content="électricien, dépannage électrique, installation électrique, rénovation, tableau électrique, devis gratuit, île-de-france">
+    <meta property="og:title" content="Gracia Vita – Électricien Qualifié | Devis Gratuit">
+    <meta property="og:description" content="+10 ans d'expérience. Dépannage, installation, rénovation. Devis gratuit sans engagement.">
+    <meta property="og:type" content="website">
     <title>Gracia Vita – Électricien Qualifié | Devis Gratuit | Intervention Rapide</title>
 
-    <!-- Fonts -->
+    <!-- Preconnect fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <!-- Styles -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Schema.org LocalBusiness -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Gracia Vita – Électricien",
+        "telephone": "+33650307920",
+        "email": "vitagraciavita@hotmail.com",
+        "address": { "@type": "PostalAddress", "addressRegion": "Île-de-France", "addressCountry": "FR" },
+        "description": "Électricien qualifié – Dépannage, installation, rénovation. +10 ans d'expérience.",
+        "priceRange": "€€"
+    }
+    </script>
 </head>
 <body>
 
@@ -27,32 +44,62 @@
         <div class="header-inner container">
             <a href="#hero" class="logo">
                 <span class="logo-icon"><i class="fas fa-bolt"></i></span>
-                <span class="logo-text">Gracia Vita</span>
-                <span class="logo-meta">Électricien</span>
+                <div class="logo-info">
+                    <span class="logo-text">Gracia Vita</span>
+                    <span class="logo-meta">Électricien qualifié</span>
+                </div>
             </a>
-            <nav class="nav-links" aria-label="Navigation principale">
+
+            <nav class="nav-links" id="navLinks" aria-label="Navigation principale">
                 <a href="#services">Services</a>
                 <a href="#clients">Pour qui</a>
+                <a href="#valeur">Engagements</a>
                 <a href="#contact">Contact</a>
             </nav>
-            <a href="tel:+33650307920" class="btn btn-header" aria-label="Appeler Gracia Vita">
-                <i class="fas fa-phone"></i>
-                <span>Appeler</span>
-            </a>
+
+            <div class="header-right">
+                <a href="tel:+33650307920" class="btn btn-header" aria-label="Appeler Gracia Vita">
+                    <i class="fas fa-phone"></i>
+                    <span>Appeler</span>
+                </a>
+                <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </header>
+
+    <!-- Menu mobile overlay -->
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <nav>
+            <a href="#services"    class="mobile-link">Services</a>
+            <a href="#clients"     class="mobile-link">Pour qui</a>
+            <a href="#valeur"      class="mobile-link">Engagements</a>
+            <a href="#contact"     class="mobile-link">Contact</a>
+        </nav>
+        <a href="tel:+33650307920" class="btn btn-primary btn-large mobile-cta">
+            <i class="fas fa-phone-volume"></i>
+            +33 6 50 30 79 20
+        </a>
+    </div>
 
     <!-- ==============================
          HERO
     ============================== -->
     <section id="hero">
+        <div class="hero-bg-pattern" aria-hidden="true"></div>
         <div class="hero-left">
             <div class="hero-content">
                 <div class="hero-badge">
                     <i class="fas fa-shield-halved"></i>
                     Artisan qualifié &amp; diplômé · +10 ans d'expérience
                 </div>
-                <h1>Électricien qualifié<br><span class="accent">Intervention rapide</span></h1>
+                <h1>
+                    Électricien qualifié<br>
+                    <span class="accent">Intervention<br>rapide</span>
+                </h1>
                 <p class="hero-sub">
                     Dépannage, installation neuve, rénovation électrique.<br>
                     Particuliers et professionnels — Devis gratuit, sans engagement.
@@ -71,13 +118,23 @@
                     <i class="fas fa-phone"></i>
                     <a href="tel:+33650307920">+33 6 50 30 79 20</a>
                 </div>
+                <div class="hero-trust">
+                    <span><i class="fas fa-check"></i> Devis gratuit</span>
+                    <span><i class="fas fa-check"></i> Sans engagement</span>
+                    <span><i class="fas fa-check"></i> Normes NF C 15-100</span>
+                </div>
             </div>
         </div>
-        <div class="hero-right" aria-hidden="true"></div>
+        <div class="hero-right" aria-hidden="true">
+            <div class="hero-image-overlay"></div>
+        </div>
+        <a href="#confiance" class="hero-scroll" aria-label="Défiler vers le bas">
+            <i class="fas fa-chevron-down"></i>
+        </a>
     </section>
 
     <!-- ==============================
-         SECTION CONFIANCE
+         SECTION CONFIANCE (bande)
     ============================== -->
     <section id="confiance" aria-label="Nos garanties">
         <div class="container">
@@ -115,6 +172,47 @@
     </section>
 
     <!-- ==============================
+         STATS
+    ============================== -->
+    <section id="stats" class="section-stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item fade-in">
+                    <div class="stat-number-wrap">
+                        <span class="stat-number" data-target="10">0</span>
+                        <span class="stat-suffix">+</span>
+                    </div>
+                    <span class="stat-label">ans d'expérience</span>
+                </div>
+                <div class="stat-divider" aria-hidden="true"></div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number-wrap">
+                        <span class="stat-number" data-target="500">0</span>
+                        <span class="stat-suffix">+</span>
+                    </div>
+                    <span class="stat-label">chantiers réalisés</span>
+                </div>
+                <div class="stat-divider" aria-hidden="true"></div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number-wrap">
+                        <span class="stat-number" data-target="100">0</span>
+                        <span class="stat-suffix">%</span>
+                    </div>
+                    <span class="stat-label">conformité NF C 15-100</span>
+                </div>
+                <div class="stat-divider" aria-hidden="true"></div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number-wrap">
+                        <span class="stat-number" data-target="48">0</span>
+                        <span class="stat-suffix">h</span>
+                    </div>
+                    <span class="stat-label">délai moyen d'intervention</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==============================
          SERVICES
     ============================== -->
     <section id="services" class="section-dark">
@@ -127,34 +225,46 @@
 
             <div class="services-grid">
                 <div class="service-card fade-in">
+                    <div class="service-number" aria-hidden="true">01</div>
                     <div class="service-icon" aria-hidden="true"><i class="fas fa-wrench"></i></div>
                     <h3>Dépannage électrique</h3>
                     <p>Panne, court-circuit, disjoncteur qui saute — intervention rapide pour rétablir le courant en toute sécurité.</p>
+                    <div class="service-tag">Urgences acceptées</div>
                 </div>
                 <div class="service-card fade-in">
+                    <div class="service-number" aria-hidden="true">02</div>
                     <div class="service-icon" aria-hidden="true"><i class="fas fa-plug"></i></div>
                     <h3>Installation neuve</h3>
                     <p>Câblage complet d'une maison, appartement ou local commercial selon les normes en vigueur.</p>
+                    <div class="service-tag">Neuf &amp; VEFA</div>
                 </div>
                 <div class="service-card fade-in">
+                    <div class="service-number" aria-hidden="true">03</div>
                     <div class="service-icon" aria-hidden="true"><i class="fas fa-house-circle-check"></i></div>
                     <h3>Rénovation électrique</h3>
                     <p>Mise aux normes, remplacement de l'installation existante, rénovation partielle ou complète.</p>
+                    <div class="service-tag">Mise aux normes</div>
                 </div>
                 <div class="service-card fade-in">
+                    <div class="service-number" aria-hidden="true">04</div>
                     <div class="service-icon" aria-hidden="true"><i class="fas fa-table-cells"></i></div>
                     <h3>Tableau électrique</h3>
                     <p>Pose, remplacement ou mise à niveau de votre tableau de distribution (disjoncteurs, différentiels).</p>
+                    <div class="service-tag">Coffret &amp; Armoire</div>
                 </div>
                 <div class="service-card fade-in">
+                    <div class="service-number" aria-hidden="true">05</div>
                     <div class="service-icon" aria-hidden="true"><i class="fas fa-circle-plus"></i></div>
                     <h3>Ajout de circuits</h3>
                     <p>Création de prises, interrupteurs, VMC, éclairages — adapté à vos besoins spécifiques.</p>
+                    <div class="service-tag">Sur mesure</div>
                 </div>
                 <div class="service-card fade-in">
+                    <div class="service-number" aria-hidden="true">06</div>
                     <div class="service-icon" aria-hidden="true"><i class="fas fa-link"></i></div>
                     <h3>Raccordement d'équipements</h3>
                     <p>Lave-linge, four, borne de recharge, climatisation — raccordement sécurisé aux normes.</p>
+                    <div class="service-tag">Borne IRVE incluse</div>
                 </div>
             </div>
 
@@ -180,24 +290,24 @@
 
             <div class="clients-grid">
                 <div class="client-card fade-in">
-                    <i class="fas fa-house" aria-hidden="true"></i>
+                    <div class="client-icon"><i class="fas fa-house" aria-hidden="true"></i></div>
                     <h3>Maisons</h3>
-                    <p>Installations neuves, rénovations, dépannages pour maisons individuelles.</p>
+                    <p>Installations neuves, rénovations, dépannages pour maisons individuelles et pavillons.</p>
                 </div>
                 <div class="client-card fade-in">
-                    <i class="fas fa-building" aria-hidden="true"></i>
+                    <div class="client-icon"><i class="fas fa-building" aria-hidden="true"></i></div>
                     <h3>Appartements</h3>
-                    <p>Mise aux normes, ajout de circuits, remplacement de tableau électrique.</p>
+                    <p>Mise aux normes, ajout de circuits, remplacement de tableau électrique en copropriété.</p>
                 </div>
                 <div class="client-card fade-in">
-                    <i class="fas fa-briefcase" aria-hidden="true"></i>
+                    <div class="client-icon"><i class="fas fa-briefcase" aria-hidden="true"></i></div>
                     <h3>Bureaux</h3>
-                    <p>Câblage de locaux professionnels, installation de prises et éclairages.</p>
+                    <p>Câblage de locaux professionnels, installation de prises RJ45, éclairages de travail.</p>
                 </div>
                 <div class="client-card fade-in">
-                    <i class="fas fa-store" aria-hidden="true"></i>
+                    <div class="client-icon"><i class="fas fa-store" aria-hidden="true"></i></div>
                     <h3>Commerces</h3>
-                    <p>Raccordements, tableaux électriques, éclairage commercial et vitrine.</p>
+                    <p>Raccordements, tableaux électriques industriels, éclairage commercial et vitrine.</p>
                 </div>
             </div>
         </div>
@@ -214,28 +324,28 @@
                     <h2>Un électricien<br><span class="accent-dark">à votre service</span></h2>
                     <ul class="valeur-list">
                         <li>
-                            <i class="fas fa-check-circle" aria-hidden="true"></i>
+                            <div class="valeur-check" aria-hidden="true"><i class="fas fa-check"></i></div>
                             <div>
                                 <strong>Conseils gratuits</strong>
                                 <span>Je vous guide avant même de démarrer les travaux</span>
                             </div>
                         </li>
                         <li>
-                            <i class="fas fa-check-circle" aria-hidden="true"></i>
+                            <div class="valeur-check" aria-hidden="true"><i class="fas fa-check"></i></div>
                             <div>
                                 <strong>Devis sans engagement</strong>
                                 <span>Transparence totale sur les prix, aucune mauvaise surprise</span>
                             </div>
                         </li>
                         <li>
-                            <i class="fas fa-check-circle" aria-hidden="true"></i>
+                            <div class="valeur-check" aria-hidden="true"><i class="fas fa-check"></i></div>
                             <div>
                                 <strong>Accompagnement personnalisé</strong>
                                 <span>Je reste disponible du diagnostic jusqu'à la réception du chantier</span>
                             </div>
                         </li>
                         <li>
-                            <i class="fas fa-check-circle" aria-hidden="true"></i>
+                            <div class="valeur-check" aria-hidden="true"><i class="fas fa-check"></i></div>
                             <div>
                                 <strong>Travail soigné aux normes</strong>
                                 <span>Respect des normes NF C 15-100, sécurité garantie</span>
@@ -245,13 +355,18 @@
                 </div>
                 <div class="valeur-cta">
                     <div class="valeur-cta-box">
+                        <div class="valeur-cta-icon" aria-hidden="true"><i class="fas fa-bolt"></i></div>
                         <p class="valeur-cta-title">Prêt à démarrer&nbsp;?</p>
-                        <p class="valeur-cta-sub">Appelez maintenant pour un devis gratuit</p>
-                        <a href="tel:+33650307920" class="btn btn-dark btn-large">
+                        <p class="valeur-cta-sub">Appelez maintenant pour un devis gratuit et sans engagement</p>
+                        <a href="tel:+33650307920" class="btn btn-primary btn-large" style="width:100%;justify-content:center">
                             <i class="fas fa-phone-volume"></i>
                             +33 6 50 30 79 20
                         </a>
-                        <p class="valeur-cta-note"><i class="fas fa-clock" aria-hidden="true"></i> Réponse rapide garantie</p>
+                        <div class="valeur-cta-badges">
+                            <span><i class="fas fa-shield-halved"></i> Assuré</span>
+                            <span><i class="fas fa-star"></i> Qualifié</span>
+                            <span><i class="fas fa-clock"></i> Réactif</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -262,16 +377,18 @@
          CTA FORT
     ============================== -->
     <section id="cta" class="section-cta-full">
+        <div class="cta-bg-lines" aria-hidden="true"></div>
         <div class="container">
             <div class="cta-inner fade-in">
-                <i class="fas fa-bolt cta-icon" aria-hidden="true"></i>
+                <div class="cta-bolt" aria-hidden="true"><i class="fas fa-bolt"></i></div>
                 <h2>Besoin d'un électricien&nbsp;?</h2>
                 <p>Appelez maintenant pour une intervention rapide ou un devis gratuit</p>
                 <a href="tel:+33650307920" class="btn btn-primary btn-xl">
                     <i class="fas fa-phone-volume"></i>
                     Appeler maintenant
                 </a>
-                <div class="cta-phone">+33 6 50 30 79 20</div>
+                <div class="cta-number">+33 6 50 30 79 20</div>
+                <p class="cta-note"><i class="fas fa-clock"></i> Lundi – Samedi · 8h00 – 19h00</p>
             </div>
         </div>
     </section>
@@ -284,7 +401,7 @@
             <div class="section-header fade-in">
                 <span class="section-label">Me contacter</span>
                 <h2>Parlons de votre <span class="accent">projet</span></h2>
-                <p>Par téléphone, email ou via le formulaire ci-dessous</p>
+                <p>Par téléphone, email ou via le formulaire — je réponds rapidement</p>
             </div>
 
             <div class="contact-inner">
@@ -324,7 +441,7 @@
                         <div>
                             <strong>Urgence électrique&nbsp;?</strong>
                             <span>Appelez directement, je réponds vite.</span>
-                            <a href="tel:+33650307920" class="btn btn-primary" style="margin-top:12px">
+                            <a href="tel:+33650307920" class="btn btn-primary" style="margin-top:14px">
                                 <i class="fas fa-phone-volume"></i> Appeler maintenant
                             </a>
                         </div>
@@ -337,20 +454,23 @@
                         <label for="name">Votre nom <span aria-hidden="true">*</span></label>
                         <input type="text" id="name" name="name" placeholder="Jean Dupont" required autocomplete="name">
                     </div>
-                    <div class="form-group">
-                        <label for="phone">Votre téléphone <span aria-hidden="true">*</span></label>
-                        <input type="tel" id="phone" name="phone" placeholder="06 00 00 00 00" required autocomplete="tel">
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Type de demande</label>
-                        <select id="subject" name="subject">
-                            <option value="">Sélectionner…</option>
-                            <option value="depannage">Dépannage urgent</option>
-                            <option value="devis">Demande de devis</option>
-                            <option value="installation">Installation neuve</option>
-                            <option value="renovation">Rénovation</option>
-                            <option value="autre">Autre</option>
-                        </select>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Téléphone <span aria-hidden="true">*</span></label>
+                            <input type="tel" id="phone" name="phone" placeholder="06 00 00 00 00" required autocomplete="tel">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Type de demande</label>
+                            <select id="subject" name="subject">
+                                <option value="">Sélectionner…</option>
+                                <option value="depannage">Dépannage urgent</option>
+                                <option value="devis">Demande de devis</option>
+                                <option value="installation">Installation neuve</option>
+                                <option value="renovation">Rénovation</option>
+                                <option value="tableau">Tableau électrique</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="message">Votre demande <span aria-hidden="true">*</span></label>
@@ -364,6 +484,7 @@
                         <i class="fas fa-check-circle" aria-hidden="true"></i>
                         Message envoyé ! Je vous rappelle très rapidement.
                     </div>
+                    <p class="form-note"><i class="fas fa-lock"></i> Vos données sont confidentielles et ne seront jamais partagées.</p>
                 </form>
             </div>
         </div>
@@ -379,7 +500,7 @@
                     <span class="logo-icon" aria-hidden="true"><i class="fas fa-bolt"></i></span>
                     <div>
                         <strong>Gracia Vita</strong>
-                        <span>Électricien qualifié</span>
+                        <span>Électricien qualifié · Île-de-France</span>
                     </div>
                 </div>
                 <nav class="footer-links" aria-label="Navigation secondaire">
@@ -395,7 +516,7 @@
             </div>
             <div class="footer-bottom">
                 <p>© 2025 Gracia Vita – Électricien · Artisan qualifié · Tous droits réservés</p>
-                <p class="footer-mentions">Mentions légales · Siret : [À compléter]</p>
+                <p class="footer-mentions">Mentions légales · Siret&nbsp;: [À compléter]</p>
             </div>
         </div>
     </footer>
@@ -404,8 +525,9 @@
          BOUTON TÉLÉPHONE FLOTTANT
     ============================== -->
     <a href="tel:+33650307920" class="float-phone" id="floatPhone" aria-label="Appeler Gracia Vita au +33 6 50 30 79 20">
+        <span class="float-ring" aria-hidden="true"></span>
         <i class="fas fa-phone" aria-hidden="true"></i>
-        <span>Appeler</span>
+        <span class="float-label">Appeler</span>
     </a>
 
     <script src="script.js"></script>
