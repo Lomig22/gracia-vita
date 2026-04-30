@@ -209,60 +209,73 @@ button { font-family: var(--font); cursor: pointer; }
 .nav-links a:hover::after { transform: scaleX(1); }
 
 /* -------------------------------------------------- */
-/* 6. HERO                                            */
+/* 6. HERO – split layout (texte gauche / image droite) */
 /* -------------------------------------------------- */
 #hero {
-    position: relative;
-    min-height: 100svh;
     display: flex;
-    align-items: center;
-    padding: 120px 0 80px;
+    min-height: 100svh;
     overflow: hidden;
 }
 
-.hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(ellipse 90% 60% at 50% -5%,  rgba(255,184,0,0.13) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 50% at 85% 80%,  rgba(255,184,0,0.07) 0%, transparent 60%),
-        linear-gradient(180deg, #0a0a0f 0%, #0d0d16 100%);
-    z-index: 0;
-}
-.hero-bg::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(circle, rgba(255,184,0,0.07) 1px, transparent 1px);
-    background-size: 55px 55px;
-    opacity: 0.5;
+/* Côté gauche – texte */
+.hero-left {
+    flex: 0 0 52%;
+    display: flex;
+    align-items: center;
+    background: var(--clr-bg);
+    padding: 120px 64px 80px 0;
 }
 
 .hero-content {
-    position: relative;
-    z-index: 1;
-    max-width: 720px;
+    max-width: 520px;
+    margin-left: auto;
+    padding-left: 24px;
 }
 
+/* Côté droit – image */
+.hero-right {
+    flex: 1;
+    position: relative;
+    background-image: url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1400&q=80');
+    background-size: cover;
+    background-position: center;
+}
+/* Fondu progressif vers le texte à gauche */
+.hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--clr-bg) 0%, transparent 30%);
+}
+/* Assombrir légèrement l'image */
+.hero-right::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+}
+
+/* Contenu héro */
 .hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255,184,0,0.1);
-    border: 1px solid rgba(255,184,0,0.28);
+    background: rgba(255,184,0,0.08);
+    border: 1px solid rgba(255,184,0,0.22);
     color: var(--clr-accent);
-    padding: 8px 18px;
-    border-radius: 50px;
-    font-size: 0.78rem;
+    padding: 7px 16px;
+    border-radius: 4px;
+    font-size: 0.76rem;
     font-weight: 600;
     margin-bottom: 28px;
+    letter-spacing: 0.3px;
     animation: fadeInDown 0.6s ease both;
 }
 
 #hero h1 {
-    font-size: clamp(2.2rem, 5.5vw, 3.8rem);
-    font-weight: 800;
-    line-height: 1.12;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.15;
     color: var(--clr-white);
     margin-bottom: 20px;
     animation: fadeInUp 0.7s ease 0.1s both;
@@ -272,17 +285,18 @@ button { font-family: var(--font); cursor: pointer; }
 .accent-dark { color: var(--clr-accent-dark); }
 
 .hero-sub {
-    font-size: clamp(0.95rem, 2vw, 1.12rem);
+    font-size: 1rem;
     color: var(--clr-muted);
     margin-bottom: 36px;
-    line-height: 1.75;
+    line-height: 1.8;
+    font-weight: 300;
     animation: fadeInUp 0.7s ease 0.2s both;
 }
 
 .hero-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 14px;
+    gap: 12px;
     margin-bottom: 28px;
     animation: fadeInUp 0.7s ease 0.3s both;
 }
@@ -292,26 +306,17 @@ button { font-family: var(--font); cursor: pointer; }
     align-items: center;
     gap: 10px;
     color: var(--clr-gray);
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     animation: fadeInUp 0.7s ease 0.4s both;
 }
 .hero-phone a {
     color: var(--clr-white);
-    font-weight: 700;
-    font-size: 1.1rem;
+    font-weight: 600;
+    font-size: 1.05rem;
     transition: color var(--transition);
 }
 .hero-phone a:hover { color: var(--clr-accent); }
-.hero-phone i      { color: var(--clr-accent); }
-
-.hero-scroll-hint {
-    position: absolute;
-    bottom: 28px; left: 50%;
-    transform: translateX(-50%);
-    color: rgba(255,255,255,0.2);
-    font-size: 1.1rem;
-    animation: bounce 2.2s ease infinite;
-}
+.hero-phone i      { color: var(--clr-accent); font-size: 0.8rem; }
 
 /* -------------------------------------------------- */
 /* 7. SECTION CONFIANCE                               */
@@ -324,71 +329,69 @@ button { font-family: var(--font); cursor: pointer; }
 .trust-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    border-top: 4px solid var(--clr-accent);
-    box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+    border-top: 2px solid var(--clr-accent);
+    box-shadow: 0 1px 16px rgba(0,0,0,0.05);
 }
 
 .trust-item {
     display: flex;
     align-items: center;
     gap: 14px;
-    padding: 26px 22px;
+    padding: 24px 20px;
     background: #fff;
-    border-right: 1px solid #e8e8ee;
+    border-right: 1px solid #ebebeb;
     transition: background var(--transition);
 }
 .trust-item:last-child { border-right: none; }
-.trust-item:hover      { background: #fdfcf7; }
+.trust-item:hover      { background: #fafafa; }
 
 .trust-icon {
-    width: 46px; height: 46px;
-    background: rgba(255,184,0,0.11);
-    border-radius: 10px;
+    width: 42px; height: 42px;
+    background: rgba(255,184,0,0.09);
+    border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
     color: var(--clr-accent-dark);
-    font-size: 1.15rem;
+    font-size: 1rem;
     flex-shrink: 0;
-    transition: background var(--transition);
 }
-.trust-item:hover .trust-icon { background: rgba(255,184,0,0.2); }
 
 .trust-text        { display: flex; flex-direction: column; gap: 3px; }
-.trust-text strong { color: #111; font-size: 0.88rem; font-weight: 700; }
-.trust-text span   { color: #666; font-size: 0.76rem; line-height: 1.4; }
+.trust-text strong { color: #111; font-size: 0.86rem; font-weight: 700; }
+.trust-text span   { color: #777; font-size: 0.74rem; line-height: 1.4; }
 
 /* -------------------------------------------------- */
 /* 8. SECTIONS – COMMUNS                              */
 /* -------------------------------------------------- */
-.section-dark  { padding: 96px 0; background: var(--clr-dark); }
-.section-light { padding: 96px 0; background: var(--clr-light); }
+.section-dark  { padding: 88px 0; background: var(--clr-dark); }
+.section-light { padding: 88px 0; background: #f8f8fa; }
 
 .section-header {
     text-align: center;
-    margin-bottom: 56px;
+    margin-bottom: 52px;
 }
 .section-label {
     display: inline-block;
     text-transform: uppercase;
     letter-spacing: 2.5px;
-    font-size: 0.72rem;
-    font-weight: 700;
+    font-size: 0.7rem;
+    font-weight: 600;
     margin-bottom: 12px;
 }
 .section-dark  .section-label { color: var(--clr-accent); }
 .section-light .section-label { color: var(--clr-accent-dark); }
 
 .section-header h2 {
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 800;
+    font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+    font-weight: 700;
     line-height: 1.2;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     letter-spacing: -0.3px;
 }
 .section-dark  .section-header h2 { color: var(--clr-white); }
 .section-light .section-header h2 { color: #111; }
 
-.section-dark  .section-header p  { color: var(--clr-muted); font-size: 0.95rem; }
-.section-light .section-header p  { color: #666;             font-size: 0.95rem; }
+.section-dark  .section-header p  { color: var(--clr-muted); font-size: 0.92rem; }
+.section-light .section-header p  { color: #777;             font-size: 0.92rem; }
 
 /* -------------------------------------------------- */
 /* 9. SERVICES                                        */
@@ -403,38 +406,36 @@ button { font-family: var(--font); cursor: pointer; }
 .service-card {
     background: var(--clr-card);
     border: 1px solid var(--clr-border);
-    border-radius: var(--radius-lg);
-    padding: 32px 28px;
-    transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    transition: transform var(--transition), border-color var(--transition);
 }
 .service-card:hover {
-    border-color: rgba(255,184,0,0.4);
-    transform: translateY(-5px);
-    box-shadow: 0 12px 36px rgba(255,184,0,0.1);
+    border-color: rgba(255,184,0,0.3);
+    transform: translateY(-3px);
 }
 
 .service-icon {
-    width: 54px; height: 54px;
-    background: rgba(255,184,0,0.1);
-    border-radius: 14px;
+    width: 46px; height: 46px;
+    background: rgba(255,184,0,0.08);
+    border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
     color: var(--clr-accent);
-    font-size: 1.3rem;
-    margin-bottom: 20px;
-    transition: background var(--transition);
+    font-size: 1.1rem;
+    margin-bottom: 18px;
 }
-.service-card:hover .service-icon { background: rgba(255,184,0,0.2); }
 
 .service-card h3 {
-    font-size: 1rem;
+    font-size: 0.97rem;
     font-weight: 700;
     color: var(--clr-white);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 .service-card p {
-    font-size: 0.87rem;
+    font-size: 0.85rem;
     color: var(--clr-muted);
     line-height: 1.7;
+    font-weight: 300;
 }
 
 .section-cta { text-align: center; }
@@ -450,27 +451,23 @@ button { font-family: var(--font); cursor: pointer; }
 
 .client-card {
     background: #fff;
-    border-radius: var(--radius-lg);
-    padding: 36px 24px;
+    border-radius: var(--radius);
+    padding: 32px 24px;
     text-align: center;
-    border: 2px solid transparent;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
-    transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+    border: 1px solid #e8e8ee;
+    transition: transform var(--transition), border-color var(--transition);
 }
 .client-card:hover {
     border-color: var(--clr-accent);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 32px rgba(255,184,0,0.15);
+    transform: translateY(-3px);
 }
 
 .client-card i {
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: var(--clr-accent-dark);
-    margin-bottom: 16px;
+    margin-bottom: 14px;
     display: block;
-    transition: transform var(--transition);
 }
-.client-card:hover i { transform: scale(1.1); }
 
 .client-card h3 {
     font-size: 1rem;
@@ -488,9 +485,9 @@ button { font-family: var(--font); cursor: pointer; }
 /* 11. SECTION VALEUR                                 */
 /* -------------------------------------------------- */
 .section-accent {
-    padding: 96px 0;
-    background: #fff9ea;
-    border-top: 4px solid var(--clr-accent);
+    padding: 88px 0;
+    background: #f8f8fa;
+    border-top: 1px solid #e8e8ee;
 }
 
 .valeur-inner {
@@ -502,10 +499,10 @@ button { font-family: var(--font); cursor: pointer; }
 
 .valeur-text .section-label { color: var(--clr-accent-dark); }
 .valeur-text h2 {
-    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-    font-weight: 800;
+    font-size: clamp(1.7rem, 3vw, 2.2rem);
+    font-weight: 700;
     color: #111;
-    margin-bottom: 36px;
+    margin-bottom: 32px;
     letter-spacing: -0.3px;
 }
 
@@ -528,11 +525,10 @@ button { font-family: var(--font); cursor: pointer; }
 /* CTA box */
 .valeur-cta-box {
     background: var(--clr-dark);
-    border-radius: var(--radius-lg);
-    padding: 44px 36px;
+    border-radius: var(--radius);
+    padding: 40px 32px;
     text-align: center;
-    border: 1px solid rgba(255,184,0,0.2);
-    box-shadow: var(--shadow);
+    border: 1px solid var(--clr-border);
 }
 .valeur-cta-title {
     font-size: 1.3rem;
@@ -559,37 +555,28 @@ button { font-family: var(--font); cursor: pointer; }
 /* 12. CTA FORT                                       */
 /* -------------------------------------------------- */
 .section-cta-full {
-    padding: 110px 0;
-    background: linear-gradient(135deg, #0a0a0f 0%, #1c1400 50%, #0a0a0f 100%);
-    position: relative;
-    overflow: hidden;
-}
-.section-cta-full::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(255,184,0,0.1) 0%, transparent 70%);
-    pointer-events: none;
+    padding: 96px 0;
+    background: var(--clr-dark);
+    border-top: 1px solid var(--clr-border);
+    border-bottom: 1px solid var(--clr-border);
 }
 
 .cta-inner {
     text-align: center;
-    position: relative;
-    z-index: 1;
 }
 .cta-icon {
-    font-size: 3rem;
+    font-size: 2rem;
     color: var(--clr-accent);
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     display: block;
-    animation: pulse 2s ease infinite;
+    opacity: 0.9;
 }
 .cta-inner h2 {
-    font-size: clamp(2rem, 4.5vw, 3.2rem);
-    font-weight: 800;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
     color: var(--clr-white);
-    margin-bottom: 16px;
-    letter-spacing: -0.5px;
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
 }
 .cta-inner p {
     font-size: 1.05rem;
@@ -811,15 +798,7 @@ button { font-family: var(--font); cursor: pointer; }
 }
 .float-phone i { font-size: 0.92rem; }
 
-/* Anneau pulsant autour du bouton flottant */
-.float-phone::before {
-    content: '';
-    position: absolute;
-    inset: -4px;
-    border-radius: 50px;
-    border: 2px solid rgba(255,184,0,0.4);
-    animation: ring 2.5s ease infinite;
-}
+/* Pas d'anneau pulsant – design épuré */
 
 /* -------------------------------------------------- */
 /* 16. ANIMATIONS                                     */
@@ -842,19 +821,6 @@ button { font-family: var(--font); cursor: pointer; }
     from { opacity: 0; transform: translateY(30px); }
     to   { opacity: 1; transform: translateY(0); }
 }
-@keyframes bounce {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50%       { transform: translateX(-50%) translateY(9px); }
-}
-@keyframes pulse {
-    0%, 100% { transform: scale(1);    opacity: 1;    }
-    50%       { transform: scale(1.1); opacity: 0.8;  }
-}
-@keyframes ring {
-    0%   { transform: scale(1);   opacity: 0.6; }
-    70%  { transform: scale(1.25); opacity: 0;  }
-    100% { transform: scale(1.25); opacity: 0;  }
-}
 
 /* -------------------------------------------------- */
 /* 17. RESPONSIVE – TABLETTE (≤ 960px)                */
@@ -863,35 +829,50 @@ button { font-family: var(--font); cursor: pointer; }
     .nav-links  { display: none; }
     .logo-meta  { display: block; }
 
-    .trust-grid {
-        grid-template-columns: 1fr 1fr;
+    /* Hero : image en fond, texte pleine largeur */
+    #hero { display: block; position: relative; min-height: 100svh; }
+    .hero-right {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
     }
+    .hero-right::before {
+        background: linear-gradient(to bottom, rgba(10,10,15,0.85) 0%, rgba(10,10,15,0.6) 100%);
+    }
+    .hero-left {
+        position: relative;
+        z-index: 1;
+        flex: none;
+        width: 100%;
+        padding: 120px 0 80px;
+        background: transparent;
+    }
+    .hero-content {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+
+    .trust-grid { grid-template-columns: 1fr 1fr; }
     .trust-item:nth-child(2) { border-right: none; }
     .trust-item:nth-child(3) {
-        border-right: 1px solid #e8e8ee;
-        border-top: 1px solid #e8e8ee;
+        border-right: 1px solid #ebebeb;
+        border-top: 1px solid #ebebeb;
     }
     .trust-item:nth-child(4) {
         border-right: none;
-        border-top: 1px solid #e8e8ee;
+        border-top: 1px solid #ebebeb;
     }
 
-    .valeur-inner {
-        grid-template-columns: 1fr;
-        gap: 44px;
-    }
-
-    .contact-inner {
-        grid-template-columns: 1fr;
-        gap: 44px;
-    }
+    .valeur-inner  { grid-template-columns: 1fr; gap: 40px; }
+    .contact-inner { grid-template-columns: 1fr; gap: 40px; }
 }
 
 /* -------------------------------------------------- */
 /* 18. RESPONSIVE – MOBILE (≤ 600px)                  */
 /* -------------------------------------------------- */
 @media (max-width: 600px) {
-    #hero { padding-top: 96px; }
+    .hero-left { padding: 96px 0 64px; }
 
     .hero-actions             { flex-direction: column; }
     .hero-actions .btn        { width: 100%; }
